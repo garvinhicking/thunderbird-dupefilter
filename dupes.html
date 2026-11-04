@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Show dupes</title>
+  <link rel="stylesheet" href="dupes.css">
+</head>
+<body>
+  <header class="toolbar">
+    <div class="title">
+      <strong id="folderName">…</strong>
+      <span id="summary"></span>
+    </div>
+    <div class="controls">
+      <label title="A subject is listed when it occurs at least this many times">
+        Min. occurrences <input id="minCount" type="number" min="2" value="4">
+      </label>
+      <label><input id="ignorePrefixes" type="checkbox"> Ignore Re:/Fwd: prefixes</label>
+      <button id="btnRefresh" type="button">Refresh</button>
+      <button id="btnExpand" type="button">Expand all</button>
+      <button id="btnCollapse" type="button">Collapse all</button>
+    </div>
+    <div class="actions">
+      <button id="btnShow" type="button" data-cmd="show">Show in folder</button>
+      <button id="btnArchive" type="button" data-cmd="archive">Archive</button>
+      <button id="btnMove" type="button" data-cmd="move">Move to…</button>
+      <button id="btnDelete" type="button" data-cmd="delete" class="danger">Delete</button>
+    </div>
+  </header>
+
+  <main id="listWrap" tabindex="0">
+    <table id="list">
+      <colgroup>
+        <col class="col-icon">
+        <col class="col-subject">
+        <col class="col-count">
+      </colgroup>
+      <thead>
+        <tr>
+          <th title="Thread"><span class="thread-icon"></span></th>
+          <th>Subject</th>
+          <th class="num" title="Total number of messages with this subject">Number of dupes</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div id="empty" hidden></div>
+  </main>
+
+  <footer id="status"></footer>
+
+  <div id="ctxMenu" class="menu" hidden>
+    <button type="button" data-cmd="open">Open</button>
+    <button type="button" data-cmd="show">Show in folder</button>
+    <hr>
+    <button type="button" data-cmd="archive">Archive</button>
+    <button type="button" data-cmd="move">Move to…</button>
+    <button type="button" data-cmd="copy">Copy to…</button>
+    <hr>
+    <button type="button" data-cmd="delete">Delete</button>
+    <button type="button" data-cmd="deletePermanent">Delete permanently</button>
+  </div>
+
+  <dialog id="folderDialog">
+    <form method="dialog">
+      <h3 id="folderDialogTitle">Move to folder</h3>
+      <input id="folderFilter" type="search" placeholder="Filter folders…" autocomplete="off">
+      <div id="folderList" role="listbox" tabindex="-1"></div>
+      <div class="dialog-buttons">
+        <button value="cancel" type="submit">Cancel</button>
+        <button id="folderOk" value="ok" type="submit" class="primary">OK</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="dupes.js"></script>
+</body>
+</html>
